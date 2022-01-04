@@ -3,6 +3,7 @@ using Business.Constants;
 using Business.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -25,8 +26,14 @@ namespace Business.Concrete
         public IResult Add(Product product)
         {
             //ValidationTool.Validate(new ProductValidator(), product);--->aspect kullanılmalıdır.
+            IResult result = BusinessRules.Run(CheckProductName(product.ProductName));
+            if (result != null)
+            {
+                return result;
+            }
             _productDal.Add(product);
-            return new SuccessResult(Messages.AddProduct);
+             return new SuccessResult(Messages.AddProduct);
+       
         }
 
         public async Task<IResult> AddByAsync(Product product)
@@ -79,6 +86,22 @@ namespace Business.Concrete
         {
             await _productDal.UpdateByAsync(product);
             return new SuccessResult(Messages.UpdateProduct);
+        }
+
+
+
+
+
+
+        //Aynı ürün adı ile 2.bir ürün olamaz!
+        private IResult CheckProductName(string productName)
+        {
+            var result = _productDal.GetAll(p => p.ProductName == productName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.ProductNameAlreadyExists);
+            }
+            return new SuccessResult();
         }
     }
 }

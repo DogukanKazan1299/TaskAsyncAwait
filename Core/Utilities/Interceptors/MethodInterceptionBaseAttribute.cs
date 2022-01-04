@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Core.Utilities.Interceptors
 {
+    //attributelar class,methodlar için kullanılabilir.Class seviyesi.
     [AttributeUsage(AttributeTargets.Class|AttributeTargets.Method , AllowMultiple =true,Inherited =true)]
-    public abstract class MethodInterceptionBaseAttribute : Attribute, IInterceptor
+    public abstract class MethodInterceptionBaseAttribute : Attribute, IInterceptor//abstract edip gereken yerlerde ez
     {
-        public int Priority { get; set; }
+        public int Priority { get; set; }//öncelik
         public virtual void Intercept(IInvocation invocation)
         {
             

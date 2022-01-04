@@ -10,7 +10,7 @@ namespace Business.FluentValidation
 {
     public class ProductValidator : AbstractValidator<Product>
     {
-        public ProductValidator()
+        public ProductValidator()//product için validasyonlar
         {
             RuleFor(x => x.ProductName).NotEmpty().WithMessage("Ürün adı boş geçilemez..");
             RuleFor(x => x.ProductName).MaximumLength(20).WithMessage("Max 20 karakter alabilir");

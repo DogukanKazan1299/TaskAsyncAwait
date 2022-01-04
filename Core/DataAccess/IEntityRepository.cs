@@ -10,6 +10,7 @@ namespace Core.DataAccess
 {
     public interface IEntityRepository<T> where T:class,IEntity,new()
     {
+        //Senkron ve asenkron metod kullanımları: 
         List<T> GetAll(Expression<Func<T,bool>> filter=null);
         Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter = null);
         T GetById(Expression<Func<T, bool>> filter);

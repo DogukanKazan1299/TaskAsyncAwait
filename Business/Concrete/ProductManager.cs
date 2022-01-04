@@ -26,7 +26,7 @@ namespace Business.Concrete
         public IResult Add(Product product)
         {
             //ValidationTool.Validate(new ProductValidator(), product);--->aspect kullanılmalıdır.
-            IResult result = BusinessRules.Run(CheckProductName(product.ProductName));
+            IResult result = BusinessRules.Run(CheckProductName(product.ProductName));//business rules'a göre bak
             if (result != null)
             {
                 return result;

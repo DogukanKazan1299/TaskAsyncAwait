@@ -14,12 +14,13 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        Context c = new Context();
-        IProductService _productService;
+        Context c = new Context();//mvc için denedik
+        IProductService _productService;//dependency injection
         public ProductsController(IProductService productService)
         {
             _productService = productService;
         }
+        //Metotlar için senkron asenkron çağırımlar
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
@@ -121,18 +122,6 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

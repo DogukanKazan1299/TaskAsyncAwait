@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebMvcServer.Models
 {
-    public class ProductData
+    public class ProductData//apideki product nesnesi için
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }

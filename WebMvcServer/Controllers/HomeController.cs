@@ -15,8 +15,9 @@ namespace WebMvcServer.Controllers
 {
     public class HomeController : Controller
     {
+        //api instancena bağlı
         ProductAPI _api = new ProductAPI();
-
+        //all 
         public async Task<IActionResult> Index()
         {
             List<ProductData> products = new List<ProductData>();
@@ -29,6 +30,7 @@ namespace WebMvcServer.Controllers
             }
             return View(products);
         }
+        //detaylar
         public async Task<IActionResult> Details(int Id)
         {
             var product = new ProductData();
@@ -41,10 +43,12 @@ namespace WebMvcServer.Controllers
             }
             return View(product);
         }
+        //get create
         public ActionResult Create()
         {
             return View();
         }
+        //post create
         [HttpPost]
         public IActionResult Create(ProductData product)
         {
@@ -58,6 +62,7 @@ namespace WebMvcServer.Controllers
             }
             return View();
         }
+        //id'ye göre sil
         public async Task<IActionResult> Delete(int Id)
         {
             var product = new ProductData();

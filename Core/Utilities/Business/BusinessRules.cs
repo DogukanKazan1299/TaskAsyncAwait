@@ -9,11 +9,11 @@ namespace Core.Utilities.Business
 {
     public class BusinessRules
     {
-        public static IResult Run(params IResult[] logics)
+        public static IResult Run(params IResult[] logics)//farklı sayılarda business function gelebilir params kullandık
         {
-            foreach (var logic in logics)
+            foreach (var logic in logics)//gelen functionlara bak
             {
-                if (!logic.Success)
+                if (!logic.Success)//başarılı değilse hata
                 {
                     return logic;
                 }

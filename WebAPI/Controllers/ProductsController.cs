@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using DataAccess.Concrete.Contexts;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        Context c = new Context();
         IProductService _productService;
         public ProductsController(IProductService productService)
         {
@@ -37,7 +39,9 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("getbyid")]
+        [HttpGet("getbyid/{Id}")]
+        //[HttpGet("{Id}")]
+        
         public IActionResult GetById(int id)
         {
             var result = _productService.GetById(id);
@@ -85,6 +89,8 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
+        
+
         [HttpDelete("deletebyasync")]
         public async Task<IActionResult> DeleteByAsync(Product product)
         {
@@ -115,5 +121,37 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //MVC İÇİN SİLME İŞLEMİ;
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var product = await c.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            c.Products.Remove(product);
+            await c.SaveChangesAsync();
+            return NoContent();
+        }
+
+      
+
     }
 }
